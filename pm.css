@@ -1,0 +1,238 @@
+html,
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-y: auto;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.subtitle {
+    margin-bottom: 0px;
+    color: rgb(255, 255, 255, 0.5);
+}
+
+.content_right {
+    display: inline-block;
+    /*height: calc(100% - 10%);*/
+    /*width: 35%;*/
+    vertical-align: top;
+}
+
+.content_left {
+    display: inline-block;
+    height: calc(100% - 10%);
+    width: 65%;
+    vertical-align: top;
+    background-color: #F5F5F5;
+    padding: 10px;
+}
+
+.content_left_location_notice {
+    height: 15%;
+}
+
+.location_menu {
+    height: 50px
+}
+
+.content_left_notice {
+    width: 100%;
+    height: calc(100% - 48%);
+    margin: 10px 0 0 0;
+}
+
+.card_data {
+    display: inline-block;
+    width: calc(50% - 10px);
+    height: calc(42.5% - 15px);
+}
+
+.card_data_left {
+    margin: 10px 20px 10px 0;
+    vertical-align: top;
+}
+
+.card_data_right {
+    margin: 10px 0 10px 0px;
+    vertical-align: top;
+}
+
+.card_body {
+    height: 60%;
+    padding-top: 7%;
+}
+
+.card_body_data {
+    text-align: center;
+    font-weight: bolder;
+    float: right
+}
+
+.card_header {
+    height: 20%;
+}
+
+.card_header_icon {
+    margin-top: 1.2%;
+    float: right;
+}
+
+.card_footer {
+    height: 20%;
+}
+
+.card_footer_unit {
+    text-align: right;
+    font-weight: bolder;
+}
+
+.chart {
+    float: left;
+    position: relative;
+    left: -10px;
+    margin-bottom: 10px;
+}
+
+.chart:hover {
+    background-color: white
+}
+
+@media (max-width: 1310px) {
+    .content_right {
+        display: none;
+    }
+    .logo {
+        position: relative;
+        margin-top: 20%;
+        max-height: 2.5rem;
+    }
+    .navbar-brand {
+        display: inline-block;
+        padding-top: .3125rem;
+        /* padding-bottom: .3125rem; */
+        /* margin-right: 1rem; */
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+        margin: 0
+    }
+    .content_left {
+        width: 100%;
+        height: calc(100% - 10%);
+        padding: 10px;
+    }
+    .fa-8x {
+        font-size: 5em;
+    }
+    .display-2 {
+        font-size: 4em;
+        line-height: 1.2;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .card-footer {
+        padding: 5% 2% 2% 2%
+    }
+    .chart {
+        float: left;
+        position: relative;
+        top: -15%;
+        padding: 3%;
+        left: 3%;
+        background-color: white
+    }
+    .subtitle {
+        margin-bottom: 0px;
+        color: rgb(255, 255, 255, 0.5);
+        position: relative;
+        right: -15%
+    }
+    .card_body {
+        height: 60%;
+        padding-top: 10%;
+    }
+}
+
+@media (max-width: 990px) {
+    html,
+    body {
+        overflow-y: initial;
+    }
+}
+
+@media (max-width: 621px) {
+    .content_right {
+        display: none;
+    }
+    .logo {
+        position: relative;
+        margin-top: 0;
+        top: -16%;
+        max-height: 2.5rem;
+    }
+    .subtitle {
+        color: rgb(255, 255, 255, 0.5);
+        position: absolute;
+        right: 0%;
+        top: 0%
+    }
+    .content_left {
+        width: 100%;
+        height: calc(100% - 10%);
+        padding: 10px;
+    }
+    .fa-8x {
+        font-size: 2.8em;
+    }
+    .fa-2x {
+        font-size: 1.5em;
+    }
+    .card_body_data {
+        text-align: center;
+        font-weight: bolder;
+        position: absolute;
+        right: 5%;
+        top: 45%;
+    }
+    .display-2 {
+        font-size: 2.8em;
+    }
+    h2 {
+        font-size: 1rem
+    }
+    h3 {
+        font-size: 1.4rem
+    }
+    .card-footer {
+        padding: 5%
+    }
+    .chart {
+        float: left;
+        position: relative;
+        padding: 3%;
+        left: 3%;
+        top: -3%;
+        background-color: white;
+    }
+    .content_left_notice {
+        display: none
+    }
+    .content_left_location_notice {
+        height: 10%;
+    }
+    .location {
+        height: 100%
+    }
+    .card_data {
+        height: calc(42.5%);
+    }
+    .card_body {
+        height: 60%;
+        padding-top: 10%;
+    }
+}

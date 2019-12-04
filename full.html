@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/image/light.png">
+    <script src="https://kit.fontawesome.com/87dc940835.js" crossorigin="anonymous"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <link href="base.css" rel="stylesheet">
+    <link href="pm.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="fixed-top bg-ideasky-primary text-white">
+    <nav class="navbar navbar-expand-lg navbar-light" style="padding:0px;">
+        <a class="navbar-brand" href="" style="margin-left:15px; margin-top:15px;">
+            <img width="160" class="mb-4" id="logo" src="ideasky_resized.svg" alt="">
+        </a>
+        <button style="margin:20px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="padding-left:30px;">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sites Status</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/sites_status/general">General</a>
+                        <a class="dropdown-item" href="/sites_status/machine_info">Machine Info</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="">Hi, User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Display Mode</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Log out</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Log in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    <div class="empty-block" id='empty-block'></div>
+    <div class="container-fluid" style="padding:0px;">
+        <div class="content_left" style="margin:0; height:100vh;">
+            <div class="content_left_location_notice bg-white">
+                <div class="dropdown bg-ideasky-info" style="height:50%; max-height:50%;">
+                        <button type="button" class="bg-ideasky-info width-100-per btn btn-light dropdown-toggle location height-100-per" data-toggle="dropdown" id="aeroboxDropDownBtn" style="font-size:2rem;" aerobox-attribute="">
+                            location
+                        </button>
+                        <div class="dropdown-menu width-100-per" aria-labelledby="aeroboxDropDownBtn">
+                            {% for info_set in info_list %}
+                                <a class="dropdown-item location_menu width-100-per aerobox-control-area" id="{{info_set.aerobox.w_id}}">{{info_set.aerobox_geo.name}}</a>
+                            {% endfor %}
+                            <!--
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item location_menu width-100-per" >Another link</a>
+                            -->
+                        </div>
+                    
+                </div>
+                <div class="content_left_notice" >
+                    <span style="display:inline; font-weight: bolder;" >資料來源時間: </span>
+                    <span style="font-weight: bolder; text-align:center;" id="aeroboxRefreshTime"></span>
+                </div>
+            </div>
+            <div>
+                <div class="card card_data card_data_left bg-ideasky-info">
+                <div class="card-header bg-ideasky-info  card_header ">
+                            <h2 class="font-weight-bold">細懸浮微粒
+                                <span><i class=" card_header_icon fas fa-angle-double-up fa-1x" style="color:rgb(235, 48, 1);"></i></span>
+                                <!--<span><i class=" card_header_icon fas fa-angle-double-down fa-1x" style="color:rgb(4, 219, 69);"></i></span>-->
+                            </h2>
+                            
+                        </div>
+                        <div class="card-body card_body bg-white" >
+                            <span id ="pm2_5_color"><i class="far fa-smile fa-8x" ></i></span>
+                            <div class="display-2 card_body_data" id="pm2_5"></div>
+                        </div> 
+                        <div class="card-footer card_footer card_footer_unit bg-ideasky-info">
+                            <button type="button" class="btn bg-ideasky-secondary chart modal-btn" data-toggle="modal" data-target="#pm2_5ChartModal" id="pm2_5ChartModalBtn">
+                                <i class="fas fa-chart-line fa-2x"> </i>
+                            </button>
+                            <div class="modal fade chart-modal" id="pm2_5ChartModal" tabindex="-1" role="dialog" aria-labelledby="pm2_5ChartModalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
+                                    <div class="modal-content" style="width:80vw;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="pm2_5ChartModalLongTitle">細懸浮微粒趨勢圖</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col">
+                                                <div class="well">
+                                                    <div id="pm2_5Chart" class='my-chart modal-chart'></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="inline-block">μg/m<sup>3</sup></h3>
+                        </div>   
+                        
+                </div><!--
+            --><div class="card card_data card_data_right bg-ideasky-info">
+                            <div class="card-header bg-ideasky-info  card_header"><h2 class="font-weight-bold ">二氧化碳</h2></div>
+                        <div class="card-body card_body bg-white" >
+                                <span id ="co2_color"><i class="far fa-smile fa-8x" ></i></span>
+                            <div class="display-2 card_body_data " id="co2"></div>
+                        </div> 
+                        <div class="card-footer card_footer card_footer_unit bg-ideasky-info"> 
+                            <button type="button" class="btn bg-ideasky-secondary chart modal-btn"data-toggle="modal" data-target="#co2ChartModal" id="co2ChartModalBtn">
+                                <i class="fas fa-chart-line fa-2x"> </i>
+                            </button>
+                            <div class="modal fade chart-modal" id="co2ChartModal" tabindex="-1" role="dialog" aria-labelledby="co2ChartModalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
+                                    <div class="modal-content" style="width:80vw;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="co2ChartModalLongTitle">二氧化碳趨勢圖</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col">
+                                                <div class="well">
+                                                    <div id="co2Chart" class='my-chart modal-chart'></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="inline-block">ppm</h3>
+                        </div>
+                </div><!--             
+                --><div class="card card_data card_data_left bg-ideasky-info">
+                    <div class="card-header bg-ideasky-info  card_header " ><h2 class="font-weight-bold">溫度</h2></div>
+                    <div class="card-body card_body bg-white"  >
+                        <span style="color: rgb(30, 154, 255);"><i class="fas fa-thermometer-quarter fa-8x"></i></span>
+                        <div class="card_body_data display-2" id="temp"></div>
+                    </div> 
+                    <div class="card-footer card_footer card_footer_unit bg-ideasky-info" >
+                        <button type="button" class="btn bg-ideasky-secondary chart modal-btn" data-toggle="modal" data-target="#tempChartModal" id="tempChartModalBtn">
+                            <i class="fas fa-chart-line fa-2x"> </i>
+                        </button>
+                        <div class="modal fade chart-modal" id="tempChartModal" tabindex="-1" role="dialog" aria-labelledby="tempChartModalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
+                                    <div class="modal-content" style="width:80vw;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="tempChartModalLongTitle">溫度趨勢圖</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col">
+                                                <div class="well">
+                                                    <div id="tempChart" class='my-chart modal-chart'></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <h3><sup>o</sup>C</h3>
+                    </div>
+                </div><!--
+            --><div class="card card_data card_data_right bg-ideasky-info">
+                    <div class="card-header bg-ideasky-info  card_header "><h2 class="font-weight-bold">相對溼度</h2></div>
+                    <div class="card-body card_body bg-white" >
+                        <span style="color: rgb(30, 154, 255);"><i class="fas fa-tint fa-8x"></i></span>
+                        <div class="display-2 card_body_data" id="rh"></div>
+
+                    </div> 
+                    <div class="card-footer card_footer card_footer_unit bg-ideasky-info">
+                        <button type="button" class="btn bg-ideasky-secondary chart modal-btn"data-toggle="modal" data-target="#rhChartModal" id="rhChartModalBtn">
+                            <i class="fas fa-chart-line fa-2x"> </i>
+                        </button>
+                        <div class="modal fade chart-modal" id="rhChartModal" tabindex="-1" role="dialog" aria-labelledby="rhChartModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
+                                <div class="modal-content" style="width:80vw;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="rhChartModalLongTitle">相對溼度趨勢圖</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col">
+                                            <div class="well">
+                                                <div id="rhChart" class='my-chart modal-chart'></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>%</h3>
+                    </div>
+                </div>
+                
+            </div>
+                
+        </div>
+        
+        <!-- 以註解解決CSS display: inline-block;並排會多個空格-->
+        <div class="content_right bg-white" style="margin:0; height:90vh;">
+        </div>
+    </div>
+</body>
+
+<script>
+    var variableColor = {
+        'pm2_5':"#993300",
+        'pm10':'#000000',
+        'co2':"#ff0066",
+        'temp':"#ff6600",
+        'rh':'#0033cc'
+    };
+
+    var variableUnit = {
+        'pm2.5':"pm2_5(μg／m^3)",
+        'pm10':'pm10(μg／m^3)',
+        'co2':"CO2(ppm)",
+        'temp':"Temp(°C)",
+        'rh':'RH(%)'
+    };
+
+    var variableMax = {
+        'pm2_5':200,
+        'pm10':500,
+        'co2':1500,
+        'temp':40,
+        'rh':30
+    };
+
+    var variableMin = {
+        'pm2_5':0,
+        'pm10':0,
+        'co2':300,
+        'temp':10,
+        'rh':100
+    };
+
+    let A={
+        "temp":[],
+        "rh"  :[],
+        "pm2_5":[],
+        "co2":[],
+        "receive_time" :[]
+    }
+
+    function FetchData(w_id, time_format = 'epoch', amount = '30', variable = 'all', functionality = 'unit') {
+        this.w_id = w_id;
+        this.time_format = time_format;
+        this.amount = amount;
+        this.variable = variable;
+        this.functionality = functionality;
+        this.data = [];
+        this.base_url = {
+            'unit': '/data_api/latest_x_units/',
+            'day': '/data_api/latest_x_days/',
+            'time': '/data_api/time_sequence/'
+        }
+
+        this.get_url = function() {
+            let base = this.base_url[this.functionality]
+            let parameter = `?w_id=${this.w_id}&f=${this.time_format}&u=${this.amount}&variable=${this.variable}`;
+            let url = base + parameter;
+            return url;
+        }
+
+        this.fetch = function() {
+            fetch(this.get_url()).then(response => response.json()).then(data => {
+                this.data = data;
+            }).catch(function(err) {
+                console.log(`${this.url} Error`)
+            })
+        };
+        this.fetch();
+    }
+
+    function FetchDataFactory() {
+        this.list = [];
+        this.create = function(w_id, time_format = 'epoch', amount = '30', variable = 'all', functionality = 'unit') {
+            let fetch_data = new FetchData(w_id, time_format, amount, variable, functionality);
+            this.list.push(fetch_data);
+            return fetch_data;
+        }
+        this.fetch_all = function() {
+            for (fetch_data of this.list){
+                fetch_data.fetch();
+            }
+        }
+    }
+
+    function FetchDataLinearChart(fetch_data, dom, variable, w_id) {
+        this.variable = variable;
+        this.dom = dom;
+        this.fetch_data = fetch_data;
+        //this.fetch_data.variable = this.variable;
+        this.chart = NaN;
+        this.svg_dom = NaN;
+        this.w_id = w_id
+
+        this.data_serialize = function(d, key, color) {
+            let data = d;
+            let tData = [];
+            for (let datum of data) {
+                tData.push({
+                    x: datum['receive_time'],
+                    y: parseFloat(datum[key])
+                });
+            };
+
+            if (key == 'pm2_5') {
+                key = 'pm2.5';
+            };
+
+            return [{
+                values: tData,
+                key: key,
+                color: color
+            }];
+        };
+
+        this.chart_init = function(d, yLabel, domainMax, domainMin) {
+            chart = nv.models.lineChart()
+                .options({
+                    duration: 300,
+                    useInteractiveGuideline: true
+                });
+
+            // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+            chart.xAxis
+                .axisLabel('Time')
+                .showMaxMin(false)
+                .rotateLabels(-20) // Want longer labels? Try rotating them to fit easier.
+                .tickPadding(10)
+                .tickFormat(function(d) {
+                    return d3.time.format('%m/%d %H')(new Date(d));
+                })
+
+            chart.yAxis
+                .axisLabel(yLabel)
+                .ticks(5)
+                .tickFormat(function(d) {
+                    if (d == null) {
+                        return 'N/A';
+                    };
+                    return d3.format('4.2f')(d);
+                });
+
+            //chart.forceY([domainMin,domainMax])
+            return chart;
+        }
+
+        this.plot = function(Jdata) {
+            let variable = this.variable;
+            let d = this.data_serialize(Jdata, variable, variableColor[variable]);
+            let yLabel = variableUnit[variable];
+            let domainMax = variableMax[variable];
+            let domainMin = variableMin[variable];
+            this.chart = this.chart_init(d, yLabel, domainMax, domainMin);
+            this.svg_dom = d3.select(`${this.dom}`).append('svg');
+            this.svg_dom.datum(d).transition().duration(500).call(this.chart);
+            nv.utils.windowResize(this.chart.update);
+        }
+
+        this.dom_init = function() {
+            if (this.fetch_data.data.length == 0) {
+                this.data_update();
+            }
+            if ($(`${this.dom}`).length > 0) {
+                this.remove_dom();
+            }
+            this.plot(this.fetch_data.data);
+        }
+
+        this.remove_dom = function() {
+            d3.selectAll(`${this.dom} svg`).remove();
+        }
+
+        this.plot_update = function() {
+            this.svg_dom.datum(
+                    this.data_serialize(this.fetch_data.data, variable, variableColor[variable])
+                )
+                .transition().duration(500).call(this.chart);
+        }
+
+        this.data_update = function() {
+            this.fetch_data.fetch();
+        }
+    }
+
+    function FetchDataChartFactory() {
+        this.chart_cate = {
+            'linear': FetchDataLinearChart,
+        }
+        this.list = [];
+        this.create = function(fetch_data, dom, variable, w_id, t = 'linear') {
+            let fetch_data_chart = new this.chart_cate[t](fetch_data, dom, variable, w_id);
+            this.list.push(fetch_data_chart);
+            return fetch_data_chart;
+        }
+    }
+    
+    function data_(data){
+        for(let i=0;i<data.length;i++){
+                temp=data[i].temp
+                rh=data[i].rh
+                pm2_5=data[i].pm2_5
+                co2=data[i].co2
+                receive_time=new Date(data[i].receive_time)
+                if(i==0){
+
+                    document.getElementById("temp").innerHTML=`${parseInt(temp)}`;
+                    document.getElementById("rh").innerHTML=`${parseInt(rh)}`;
+                    document.getElementById("pm2_5").innerHTML=`${parseInt(pm2_5)}`;
+                    document.getElementById("co2").innerHTML=`${parseInt(co2)}`;
+                    document.getElementById("aeroboxRefreshTime").innerHTML = receive_time;
+                    //new Date(receive_time.setHours(receive_time.getHours()+8))
+                    if(co2<1000){ 
+                        document.getElementById("co2_color").innerHTML='<i class="far fa-smile fa-8x" style="color:rgb(4, 233, 23);"></i>'
+                        }
+                    else{
+                        document.getElementById("co2_color").innerHTML='<i class="far fa-dizzy fa-8x" style="color:rgb(255, 154, 4);"></i>'
+                        }
+
+                    if(pm2_5<35){
+                        //document.getElementById("pm2_5_color").style.color="rgb(4, 219, 69)"
+                        document.getElementById("pm2_5_color").innerHTML='<i class="far fa-smile fa-8x" style="color:rgb(4, 233, 23);"></i>'
+                        }
+                    else if(pm2_5>=35 && pm2_5<53) {
+                        //document.getElementById("pm2_5_color").style.color="rgb(255, 154, 4)"
+                        document.getElementById("pm2_5_color").innerHTML='<i class="far fa-fromn-open fa-8x" style="color:rgb(255, 154, 4);"></i>'
+                        }
+                    else{
+                        //document.getElementById("pm2_5_color").style.color = "rgb(235, 48, 1)"
+                        document.getElementById("pm2_5_color").innerHTML='<i class="far fa-angry fa-8x" style="color:rgb(235, 48, 1);"></i>'
+                        }
+                }
+
+            A.temp.push(temp);
+            A.rh.push(rh);
+            A.pm2_5.push(pm2_5);
+            A.co2.push(co2);
+            A.receive_time.push(receive_time); 
+        }
+
+    }
+
+    let fetch_data_factory = new FetchDataFactory();
+    let fetch_data_chart_factory = new FetchDataChartFactory();
+
+    $(document).ready(function(){
+        let b=["pm2_5","co2","temp","rh"]; //畫圖
+        for (aerobox of document.getElementsByClassName('aerobox-control-area')){
+            let d = fetch_data_factory.create(aerobox.id, 'epoch', '60', 'all');
+            
+            for(var_ of b){
+                let g=fetch_data_chart_factory.create(d,`#${var_}Chart`,var_,aerobox.id);
+            }     
+        }
+    });
+
+    $('.dropdown-menu a').click(function(){
+        $('#aeroboxDropDownBtn').text($(this).text());
+        for (fetch_data of fetch_data_factory.list){
+            if (fetch_data.w_id == this.id){
+                fetch_data.fetch();
+                data_(fetch_data.data);  
+                document.getElementById("aeroboxDropDownBtn").setAttribute("aerobox-attribute",this.id);
+            }
+        }
+    });
+
+    $('.chart-modal').on('shown.bs.modal',function(){
+        let current_id = document.getElementById("aeroboxDropDownBtn").getAttribute("aerobox-attribute");
+        for (this_chart of fetch_data_chart_factory.list){
+            if (this_chart.w_id == current_id){
+                this_chart.dom_init();
+                this_chart.plot_update();
+                console.log(this_chart);
+            }
+        }
+    });
+        
+</script>
+
+</html>
