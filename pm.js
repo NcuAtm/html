@@ -4,8 +4,8 @@ var app = new Vue({
         "temp":"","rh":"","co2":"","pm2_5":"",
         "temp_icon":"<i class='fas fa-thermometer-quarter fa-8x blue'</i>",
         "rh_icon":"<i class='fas fa-tint fa-8x blue'</i>",
-        "co2_icon":"",
-        "pm2_5_icon":"",
+        "co2_icon":"<i class='far fa-smile fa-8x green'</i>",
+        "pm2_5_icon":"<i class='far fa-smile fa-8x green'</i>",
         "receive_time":""      
 },
     methods: {
