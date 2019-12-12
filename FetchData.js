@@ -30,13 +30,13 @@ var variableMin = {
     'rh': 100
 };
 
-let A = {
-    "temp": [],
-    "rh": [],
-    "pm2_5": [],
-    "co2": [],
-    "receive_time": []
-}
+// let A = {
+//     "temp": [],
+//     "rh": [],
+//     "pm2_5": [],
+//     "co2": [],
+//     "receive_time": []
+// }
 
 function FetchData(w_id, time_format = 'epoch', amount = '30', variable = 'all', functionality = 'unit') {
     this.w_id = w_id;

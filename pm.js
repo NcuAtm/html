@@ -1,44 +1,47 @@
-function data_(data) {
-    for (let i = 0; i < data.length; i++) {
-        temp = data[i].temp
-        rh = data[i].rh
-        pm2_5 = data[i].pm2_5
-        co2 = data[i].co2
-        receive_time = new Date(data[i].receive_time)
-        if (i == 0) {
+var app = new Vue({
+    el:"#vue",
+    data: {
+        "temp":"","rh":"","co2":"","pm2_5":"",
+        "temp_icon":"<i class='fas fa-thermometer-quarter fa-8x blue'</i>",
+        "rh_icon":"<i class='fas fa-tint fa-8x blue'</i>",
+        "co2_icon":"",
+        "pm2_5_icon":"",
+        "receive_time":""      
+},
+    methods: {
+        data_ :function(data){
+            for (let i = 0; i < data.length; i++) {
+                    temp = data[i].temp
+                    rh = data[i].rh
+                    pm2_5 = data[i].pm2_5
+                    co2 = data[i].co2
+                    receive_time = new Date(data[i].receive_time)
+                    if (i == 0) {
+                        this.temp=temp
+                        this.rh=rh
+                        this.co2=co2
+                        this.pm2_5=pm2_5
+                        this.receive_time=receive_time
+                        if (co2 < 1000) {
+                            this.co2_icon="<i class='far fa-smile fa-8x green'</i>"
+                        } else {
+                            this.co2_icon="<i class='far fa-dizzy fa-8x red'</i>"
+                        }
 
-            document.getElementById("temp").innerHTML = `${parseInt(temp)}`;
-            document.getElementById("rh").innerHTML = `${parseInt(rh)}`;
-            document.getElementById("pm2_5").innerHTML = `${parseInt(pm2_5)}`;
-            document.getElementById("co2").innerHTML = `${parseInt(co2)}`;
-            document.getElementById("aeroboxRefreshTime").innerHTML = receive_time;
-            //new Date(receive_time.setHours(receive_time.getHours()+8))
-            if (co2 < 1000) {
-                document.getElementById("co2_color").innerHTML = '<i class="far fa-smile fa-8x" style="color:rgb(4, 233, 23);"></i>'
-            } else {
-                document.getElementById("co2_color").innerHTML = '<i class="far fa-dizzy fa-8x" style="color:rgb(255, 154, 4);"></i>'
-            }
-
-            if (pm2_5 < 35) {
-                //document.getElementById("pm2_5_color").style.color="rgb(4, 219, 69)"
-                document.getElementById("pm2_5_color").innerHTML = '<i class="far fa-smile fa-8x" style="color:rgb(4, 233, 23);"></i>'
-            } else if (pm2_5 >= 35 && pm2_5 < 53) {
-                //document.getElementById("pm2_5_color").style.color="rgb(255, 154, 4)"
-                document.getElementById("pm2_5_color").innerHTML = '<i class="far fa-fromn-open fa-8x" style="color:rgb(255, 154, 4);"></i>'
-            } else {
-                //document.getElementById("pm2_5_color").style.color = "rgb(235, 48, 1)"
-                document.getElementById("pm2_5_color").innerHTML = '<i class="far fa-angry fa-8x" style="color:rgb(235, 48, 1);"></i>'
+                        if (pm2_5 < 35) {
+                            this.pm2_5_icon="<i class='far fa-smile fa-8x green'</i>"
+                        } else if (pm2_5 >= 35 && pm2_5 < 53) {
+                            this.pm2_5_icon="<i class='far fa-fromn-open fa-8x yellow'</i>"
+                        } else {
+                            this.pm2_5_icon="<i class='far fa-angry fa-8x red'</i>"
+                        }
+                        break;
+                    }
             }
         }
-
-        A.temp.push(temp);
-        A.rh.push(rh);
-        A.pm2_5.push(pm2_5);
-        A.co2.push(co2);
-        A.receive_time.push(receive_time);
     }
+})
 
-}
 
 let fetch_data_factory = new FetchDataFactory();
 let fetch_data_chart_factory = new FetchDataChartFactory();
@@ -59,7 +62,7 @@ $('.dropdown-menu a').click(function() {
     for (fetch_data of fetch_data_factory.list) {
         if (fetch_data.w_id == this.id) {
             fetch_data.fetch();
-            data_(fetch_data.data);
+            app.data_(fetch_data.data);
             document.getElementById("aeroboxDropDownBtn").setAttribute("aerobox-attribute", this.id);
         }
     }

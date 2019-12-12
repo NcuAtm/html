@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link href="base.css" rel="stylesheet">
     <link href="pm.css" rel="stylesheet">
     <script src="FetchData.js"></script>
@@ -62,7 +63,7 @@
     </div>
     <div class="empty-block" id='empty-block'></div>
     <div class="container-fluid" style="padding:0px;">
-        <div class="content_left" style="margin:0; height:100vh;">
+        <div class="content_left" style="margin:0; height:100vh;"id=vue>
             <div class="content_left_location_notice bg-white">
                 <div class="dropdown bg-ideasky-info" style="height:50%; max-height:50%;">
                         <button type="button" class="bg-ideasky-info width-100-per btn btn-light dropdown-toggle location height-100-per" data-toggle="dropdown" id="aeroboxDropDownBtn" style="font-size:2rem;" aerobox-attribute="">
@@ -81,21 +82,21 @@
                 </div>
                 <div class="content_left_notice" >
                     <span style="display:inline; font-weight: bolder;" >資料來源時間: </span>
-                    <span style="font-weight: bolder; text-align:center;" id="aeroboxRefreshTime"></span>
+                    <span style="font-weight: bolder; text-align:center;" id="aeroboxRefreshTime">{{receive_time}}</span>
                 </div>
             </div>
             <div>
                 <div class="card card_data card_data_left bg-ideasky-info">
                 <div class="card-header bg-ideasky-info  card_header ">
                             <h2 class="font-weight-bold">細懸浮微粒
-                                <span><i class=" card_header_icon fas fa-angle-double-up fa-1x" style="color:rgb(235, 48, 1);"></i></span>
+                                <!-- <span><i class=" card_header_icon fas fa-angle-double-up fa-1x" style="color:rgb(235, 48, 1);"></i></span> -->
                                 <!--<span><i class=" card_header_icon fas fa-angle-double-down fa-1x" style="color:rgb(4, 219, 69);"></i></span>-->
                             </h2>
                             
                         </div>
                         <div class="card-body card_body bg-white" >
-                            <span id ="pm2_5_color"><i class="far fa-smile fa-8x" ></i></span>
-                            <div class="display-2 card_body_data" id="pm2_5"></div>
+                            <span v-html="pm2_5_icon"></span>
+                            <div class="display-2 card_body_data">{{pm2_5}}</div>
                         </div> 
                         <div class="card-footer card_footer card_footer_unit bg-ideasky-info">
                             <button type="button" class="btn bg-ideasky-secondary chart modal-btn" data-toggle="modal" data-target="#pm2_5ChartModal" id="pm2_5ChartModalBtn">
@@ -130,8 +131,8 @@
             --><div class="card card_data card_data_right bg-ideasky-info">
                             <div class="card-header bg-ideasky-info  card_header"><h2 class="font-weight-bold ">二氧化碳</h2></div>
                         <div class="card-body card_body bg-white" >
-                                <span id ="co2_color"><i class="far fa-smile fa-8x" ></i></span>
-                            <div class="display-2 card_body_data " id="co2"></div>
+                                <span v-html="co2_icon"></span>
+                            <div class="display-2 card_body_data ">{{co2}}</div>
                         </div> 
                         <div class="card-footer card_footer card_footer_unit bg-ideasky-info"> 
                             <button type="button" class="btn bg-ideasky-secondary chart modal-btn"data-toggle="modal" data-target="#co2ChartModal" id="co2ChartModalBtn">
@@ -165,8 +166,8 @@
                 --><div class="card card_data card_data_left bg-ideasky-info">
                     <div class="card-header bg-ideasky-info  card_header " ><h2 class="font-weight-bold">溫度</h2></div>
                     <div class="card-body card_body bg-white"  >
-                        <span style="color: rgb(30, 154, 255);"><i class="fas fa-thermometer-quarter fa-8x"></i></span>
-                        <div class="card_body_data display-2" id="temp"></div>
+                        <span v-html="temp_icon"></span>
+                        <div class="card_body_data display-2">{{temp}}</div>
                     </div> 
                     <div class="card-footer card_footer card_footer_unit bg-ideasky-info" >
                         <button type="button" class="btn bg-ideasky-secondary chart modal-btn" data-toggle="modal" data-target="#tempChartModal" id="tempChartModalBtn">
@@ -200,8 +201,8 @@
             --><div class="card card_data card_data_right bg-ideasky-info">
                     <div class="card-header bg-ideasky-info  card_header "><h2 class="font-weight-bold">相對溼度</h2></div>
                     <div class="card-body card_body bg-white" >
-                        <span style="color: rgb(30, 154, 255);"><i class="fas fa-tint fa-8x"></i></span>
-                        <div class="display-2 card_body_data" id="rh"></div>
+                        <span v-html="rh_icon"></span>
+                        <div class="display-2 card_body_data">{{rh}}</div>
 
                     </div> 
                     <div class="card-footer card_footer card_footer_unit bg-ideasky-info">
