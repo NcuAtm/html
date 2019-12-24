@@ -12,13 +12,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link href="base.css" rel="stylesheet">
     <link href="pm.css" rel="stylesheet">
+
     <script src="FetchData.js"></script>
-    <script src="pm.js"></script>
 </head>
 
 <body>
     <div class="fixed-top bg-ideasky-primary text-white">
-    <nav class="navbar navbar-expand-lg navbar-light" style="padding:0px;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="padding:0px;">
         <a class="navbar-brand" href="" style="margin-left:15px; margin-top:15px;">
             <img width="160" class="mb-4" id="logo" src="ideasky_resized.svg" alt="">
         </a>
@@ -63,16 +63,16 @@
     </div>
     <div class="empty-block" id='empty-block'></div>
     <div class="container-fluid" style="padding:0px;">
-        <div class="content_left" style="margin:0; height:100vh;"id=vue>
+        <div class="content_left" id=vue>
             <div class="content_left_location_notice bg-white">
                 <div class="dropdown bg-ideasky-info" style="height:50%; max-height:50%;">
                         <button type="button" class="bg-ideasky-info width-100-per btn btn-light dropdown-toggle location height-100-per" data-toggle="dropdown" id="aeroboxDropDownBtn" style="font-size:2rem;" aerobox-attribute="">
                             location
                         </button>
                         <div class="dropdown-menu width-100-per" aria-labelledby="aeroboxDropDownBtn">
-                            {% for info_set in info_list %}
-                                <a class="dropdown-item location_menu width-100-per aerobox-control-area" id="{{info_set.aerobox.w_id}}">{{info_set.aerobox_geo.name}}</a>
-                            {% endfor %}
+                            
+                                <a class="dropdown-item location_menu width-100-per aerobox-control-area" id="{{info_set.aerobox.w_id}}"></a>
+                            
                             <!--
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item location_menu width-100-per" >Another link</a>
@@ -85,7 +85,7 @@
                     <span style="font-weight: bolder; text-align:center;" id="aeroboxRefreshTime">{{receive_time}}</span>
                 </div>
             </div>
-            <div>
+            <div class=data_all>
                 <div class="card card_data card_data_left bg-ideasky-info">
                 <div class="card-header bg-ideasky-info  card_header ">
                             <h2 class="font-weight-bold">細懸浮微粒
@@ -244,5 +244,6 @@
         </div>
     </div>
 </body>
+<script src="pm.js"></script>
 
 </html>

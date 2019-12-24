@@ -15,20 +15,27 @@ body {
     color: rgb(255, 255, 255, 0.5);
 }
 
+.fixed-top{
+    height: 100px;
+}
+.container-fluid{
+    height: calc(100% - 100px);
+}
+
 .content_right {
     display: inline-block;
-    /*height: calc(100% - 10%);*/
-    /*width: 35%;*/
+    height: 100%;
     vertical-align: top;
 }
 
 .content_left {
     display: inline-block;
-    height: calc(100% - 10%);
+    height: 100%;
     width: 65%;
     vertical-align: top;
     background-color: #F5F5F5;
     padding: 10px;
+    margin: 0;
 }
 
 .content_left_location_notice {
@@ -44,11 +51,14 @@ body {
     height: calc(100% - 48%);
     margin: 10px 0 0 0;
 }
+.data_all{
+    height:calc(85% - 0px);
+}
 
 .card_data {
     display: inline-block;
     width: calc(50% - 10px);
-    height: calc(42.5% - 15px);
+    height: calc(50% - 15px);
 }
 
 .card_data_left {
@@ -100,6 +110,10 @@ body {
 .chart:hover {
     background-color: white
 }
+.green{color:rgb(4, 219, 69)}
+.yellow{color:rgb(255, 154, 4)}
+.red{color:rgb(235, 48, 1)}
+.blue{color: rgb(30, 154, 255)}
 
 @media (max-width: 1310px) {
     .content_right {
@@ -122,7 +136,7 @@ body {
     }
     .content_left {
         width: 100%;
-        height: calc(100% - 10%);
+        /* height: calc(100% - 10%); */
         padding: 10px;
     }
     .fa-8x {
@@ -183,7 +197,7 @@ body {
     }
     .content_left {
         width: 100%;
-        height: calc(100% - 10%);
+        /* height: calc(100% - 10%); */
         padding: 10px;
     }
     .fa-8x {
