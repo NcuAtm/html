@@ -23,17 +23,17 @@ var app = new Vue({
                         this.pm2_5=pm2_5
                         this.receive_time=receive_time
                         if (co2 < 1000) {
-                            this.co2_icon="<i class='far fa-smile fa-8x green'</i>"
+                            this.co2_icon="<i class='far fa-smile fa-8x green'></i>"
                         } else {
-                            this.co2_icon="<i class='far fa-dizzy fa-8x red'</i>"
+                            this.co2_icon="<i class='far fa-dizzy fa-8x red'></i>"
                         }
 
                         if (pm2_5 < 35) {
-                            this.pm2_5_icon="<i class='far fa-smile fa-8x green'</i>"
+                            this.pm2_5_icon="<i class='far fa-smile fa-8x green'></i>"
                         } else if (pm2_5 >= 35 && pm2_5 < 53) {
-                            this.pm2_5_icon="<i class='far fa-fromn-open fa-8x yellow'</i>"
+                            this.pm2_5_icon="<i class='far fa-fromn-open fa-8x yellow'></i>"
                         } else {
-                            this.pm2_5_icon="<i class='far fa-angry fa-8x red'</i>"
+                            this.pm2_5_icon="<i class='far fa-angry fa-8x red'></i>"
                         }
                         break;
                     }
